@@ -115,8 +115,31 @@ $$
 
 ## Effect of one measurement of the field (simulations)
 
+I generate a reference a speckle pattern for the signal \(E_s\) with a Guassian enveloppe. To illustrate this effect, I take a noisy reference tilted planewave with high-frequency fluctuations of amplitude 10% of the average reference amplitude. The reference average reference amplitude is about twice the maximal signal amplitude. 
+
+For the off-axis reconstruction, I follow the basic [off-axis procedure](https://www.wavefrontshaping.net/post/id/12) using ZoomFFT (see the [ZoomFFT tutorial](https://www.wavefrontshaping.net/post/id/90)).
+
+See the [notebook](simulation_bias.ipynb) for more details.
+
+We first show the interferogram (left) and its Fourier transform (right). The \(\pm1\) order are well separated from the 0-th one, but the high frequency components of the reference adds contributions to the whole frequency spectrum. 
+
 ![Simulated interferogram and Fourier transform](./images/simu_interferogram.png)
+
+We then compare the result to the original field. We represent here only the amplitude. While the difference is not striking, we see noisy background when not compensating for the bias that disappear when using the proposed approach. 
+
+![Quadratic error on the estimation of the field](./images/reconstruction.png)
+
+To better assess the difference, we plot the quadratic error on the amplitude of the field in both cases. In many pratical experimental cases, this would not make a big difference in the quality of the reconstructed field as other experimental noise may also degrade the results. However, we see in the following that it can has dramatic effect on the measurement of transmission matrices.
+
+![Quadratic error on the estimation of the field](./images/error.png)
 
 ## Effect of the transmission matrix (experiment)
 
+The goal is here to illustrate the qualitive negative impact the bias can have on transmission matrix measurement. As stated before, this bias is typically small. However, when measuring transmission matrices, as the bias is constant, it adds energy to the matrix that is not physical. This is especially detrimental when we have a large input basis (i.e. a lot of pixels on the modulator) and when there are few high transmission channels. The cumulative effect of the bias on all measurement will add singular values that do not correspond to any physical effect.
+In the experiment, we measure the transmission matrix of a 1 meter multimode fiber with 34 propagating modes with an input basis consisting of 30 by 30 focal spots. To be sure to collect all the information, the scanned area is larger that the core, leading to some focal spot excitation with low transmissions, but for which the bias is till present (as it is constant). 
+We reconstruct the transmission matrix with the same set measured interferograms, with and without bias compensation. I show here the results of the singular value distribution in each case, as well as the profile of the input singular vectors corresponding to some singular values. 
+
 ![Comparison of SVDs with and without bias compensation](./images/TM_svd_comp.png)
+
+We expect to have a plateau of singular values close to 1, corresponding to the propagating modes, a continum of low singular values, corresponding to noise, and in between the potential existence of modes close to the cut-off that still have some non-negligible transmission due to the short length of the fiber. 
+We observe that, without compensating for the bias, we have in the *gap* (between propagating modes and noise), the existence of some input singular vectors with transmission all over the scanned area. It is not physical as transmission has to be limited to the area of the core. When compensating the bias, those vectors are pushed back to lower values, allowing to observe and quatify the transmission of some modes that are not propagative but still transmit some energy through the fiber.
