@@ -115,6 +115,8 @@ $$
 
 ## Effect of one measurement of the field (simulations)
 
-![](data/TM_svd_comp.svg)
+![Simulated interferogram and Fourier transform](./images/simu_interferogram.png)
 
 ## Effect of the transmission matrix (experiment)
+
+![Comparison of SVDs with and without bias compensation](./images/TM_svd_comp.png)
