@@ -1,5 +1,11 @@
 # How to Correct for Bias in Off-Axis Holography for Transmission Matrix Measurements
 
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15691870.svg)](https://doi.org/10.5281/zenodo.15691870)
+
+
+
 I presented in a previous [tutorial](https://www.wavefrontshaping.net/post/id/12) how to reconstruct a complex field using a camera and a plane wave reference tilted with respect to the optical axis, known as *off-axis holography*. This works perfectly with an ideal plane wave as a reference. Of course, real life is not perfect, and the reference usually presents imperfections. While low spatial fluctuations can be compensated for afterward, high spatial frequency noise has the effect of adding a small bias to the estimation of the field. Such bias is typically small, but in transmission matrix measurements—since it is static and added to all measurements—it can affect the singular value distribution and perturb or hide transmission channels that would otherwise be visible.
 
 ## Off-Axis Holography Process (Reminder)
